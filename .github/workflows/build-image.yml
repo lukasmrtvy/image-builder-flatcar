@@ -28,7 +28,14 @@ jobs:
           ls -lha ${{ github.workspace }}/output
           ls -lha ${{ github.workspace }}/output/flatcar-$FLATCAR_CHANNEL-$FLATCAR_VERSION-kube-v$KUBERNETES_VERSION
           ls -lha ${{ github.workspace }}/.cache
-      - uses: actions/upload-artifact@v4
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
-          path: ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
+          tag_name: flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
+          files:  ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
+          
+      #- uses: actions/upload-artifact@v4
+      #  with:
+      #    name: flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
+      #    path: ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}

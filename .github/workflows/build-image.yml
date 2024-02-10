@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        repository: kubernetes-sigs/image-builder
+        with:
+          repository: kubernetes-sigs/image-builder
         
       - name: build-image
         run: |

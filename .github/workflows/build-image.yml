@@ -12,4 +12,4 @@ jobs:
       - name: build-image
         run: |
           docker build -t image-builder images/capi
-          docker run --rm -e PACKER_LOG=1 -e OEM_ID=flatcar image-builder build-qemu-flatcar
+          docker run --rm --privileged -e PACKER_LOG=1 -e OEM_ID=flatcar image-builder build-qemu-flatcar

@@ -18,7 +18,7 @@ jobs:
           sudo chmod 666 /dev/kvm
           docker build -t image-builder images/capi
           # docker run --rm --privileged -e PACKER_FLAGS="--var 'kubernetes_semver=v1.28.6' --var 'kubernetes_series=v1.28'" -e PACKER_LOG=1 -v ${{ github.workspace }}/output:/output/ -e FLATCAR_CHANNEL=$FLATCAR_CHANNEL -e FLATCAR_VERSION=$FLATCAR_VERSION -e OEM_ID=kubevirt image-builder build-qemu-flatcar
-          docker run --rm --privileged -e PACKER_FLAGS="--var 'kubernetes_semver=v1.28.4'" -e PACKER_LOG=1 -v ${{ github.workspace }}/output:/output/ -e FLATCAR_CHANNEL=$FLATCAR_CHANNEL -e FLATCAR_VERSION=$FLATCAR_VERSION -e OEM_ID=kubevirt image-builder build-qemu-flatcar
+          docker run --rm --privileged -e PACKER_FLAGS="--var 'kubernetes_semver=v1.28.4'" -e PACKER_LOG=1 -v ${{ github.workspace }}/output:/home/imagebuilder/output/ -e FLATCAR_CHANNEL=$FLATCAR_CHANNEL -e FLATCAR_VERSION=$FLATCAR_VERSION -e OEM_ID=kubevirt image-builder build-qemu-flatcar
           ls -lha ./output/
           ls -lha ./output/flatcar-stable-3760.2.0-kube-v1.28.4
       - uses: actions/upload-artifact@v4

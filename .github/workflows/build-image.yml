@@ -1,0 +1,14 @@
+name: build-image
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        repository: kubernetes-sigs/image-builder
+        
+      - name: build-image
+        run: |
+          docker build -t image-builder images/capi
+          docker run --rm -it -e PACKER_LOG=1 -e OEM_ID=flatcar image-builder build-qemu-flatcar

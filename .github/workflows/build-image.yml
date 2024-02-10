@@ -1,6 +1,11 @@
 name: build-image
 on:
   workflow_dispatch:
+
+env:
+  FLATCAR_VERSION: 3760.2.0
+  FLATCAR_CHANNEL: stable
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,4 +18,5 @@ jobs:
         run: |
           sudo chmod 666 /dev/kvm
           docker build -t image-builder images/capi
-          docker run --rm --privileged -e PACKER_LOG=1 -e OEM_ID=flatcar image-builder build-qemu-flatcar
+          docker run --rm --privileged -e PACKER_FLAGS="--var 'kubernetes_semver=v1.28.6' --var 'kubernetes_series=v1.28'" -e PACKER_LOG=1 -v ${{ github.workspace }}/output:/output/ -e FLATCAR_CHANNEL=$FLATCAR_CHANNEL -e FLATCAR_VERSION=$FLATCAR_VERSION -OEM_ID=kubevirt image-builder build-qemu-flatcar
+          ls -lha .

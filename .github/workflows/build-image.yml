@@ -11,5 +11,6 @@ jobs:
       - uses: docker/setup-qemu-action@v3
       - name: build-image
         run: |
+          sudo chmod 666 /dev/kvm
           docker build -t image-builder images/capi
           docker run --rm --privileged -e PACKER_LOG=1 -e OEM_ID=flatcar image-builder build-qemu-flatcar

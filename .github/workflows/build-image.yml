@@ -30,5 +30,5 @@ jobs:
           ls -lha ${{ github.workspace }}/.cache
       - uses: actions/upload-artifact@v4
         with:
-          name: flatcar-$FLATCAR_CHANNEL-$FLATCAR_VERSION-kube-v$KUBERNETES_VERSION
-          path: ${{ github.workspace }}/output/flatcar-$FLATCAR_CHANNEL-$FLATCAR_VERSION-kube-v$KUBERNETES_VERSION/flatcar-$FLATCAR_CHANNEL-$FLATCAR_VERSION-kube-v$KUBERNETES_VERSION
+          name: flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
+          path: ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}

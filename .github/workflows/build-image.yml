@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
 
 env:
-  FLATCAR_VERSION: 3975.2.1
+  FLATCAR_VERSION: 4152.2.0
   FLATCAR_CHANNEL: stable
-  KUBERNETES_VERSION: 1.30.5
+  KUBERNETES_VERSION: 1.32.1
 
 jobs:
   build:

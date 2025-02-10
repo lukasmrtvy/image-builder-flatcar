@@ -16,10 +16,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: kubernetes-sigs/image-builder
-      #- uses: actions/cache@v4
-      #  with:
-      #    path: ${{ github.workspace }}/output
-      #    key: .cache
       - name: build-image
         run: |
           sudo chmod 666 /dev/kvm
@@ -29,15 +25,8 @@ jobs:
           docker run --rm --privileged -e PACKER_FLAGS="--var 'kubernetes_semver=v$KUBERNETES_VERSION'" -e PACKER_LOG=1 -v ${{ github.workspace }}/output:/home/imagebuilder/output/ -v ${{ github.workspace }}/.cache:/home/imagebuilder/.cache/ -e FLATCAR_CHANNEL=$FLATCAR_CHANNEL -e FLATCAR_VERSION=$FLATCAR_VERSION -e OEM_ID=kubevirt image-builder build-qemu-flatcar
           ls -lha ${{ github.workspace }}/output/
           sudo xz -vT0 ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
-          
-
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
           files:  ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}.xz
-          
-      #- uses: actions/upload-artifact@v4
-      #  with:
-      #    name: flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
-      #    path: ${{ github.workspace }}/output/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}/flatcar-${{ env.FLATCAR_CHANNEL }}-${{ env.FLATCAR_VERSION }}-kube-v${{ env.KUBERNETES_VERSION }}
